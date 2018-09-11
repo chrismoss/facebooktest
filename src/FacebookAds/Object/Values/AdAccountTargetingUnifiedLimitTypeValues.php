@@ -49,6 +49,7 @@ class AdAccountTargetingUnifiedLimitTypeValues extends AbstractEnum {
   const REGIONS = 'regions';
   const ZIPS = 'zips';
   const INTERESTS = 'interests';
+  const LOCATION_CLUSTER_IDS = 'location_cluster_ids';
   const KEYWORDS = 'keywords';
   const EDUCATION_SCHOOLS = 'education_schools';
   const EDUCATION_MAJORS = 'education_majors';
@@ -143,4 +144,5 @@ class AdAccountTargetingUnifiedLimitTypeValues extends AbstractEnum {
   const IS_WHATSAPP_DESTINATION_AD = 'is_whatsapp_destination_ad';
   const MARKETPLACE_PRODUCT_CATEGORIES = 'marketplace_product_categories';
   const INSTREAM_VIDEO_SPONSORSHIP_PLACEMENTS = 'instream_video_sponsorship_placements';
+  const PROSPECTING_AUDIENCE = 'prospecting_audience';
 }

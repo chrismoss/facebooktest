@@ -56,14 +56,202 @@ class ShadowIGUser extends AbstractCrudObject {
   }
 
 
+  public function getAnalyticsCohortQuery(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'query_ids' => 'list<string>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_cohort_query',
+      new AnalyticsCohortQueryResult(),
+      'EDGE',
+      AnalyticsCohortQueryResult::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsEntityUserConfig(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_entity_user_config',
+      new AnalyticsEntityUserConfig(),
+      'EDGE',
+      AnalyticsEntityUserConfig::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsEventTypes(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_event_types',
+      new AnalyticsEventTypes(),
+      'EDGE',
+      AnalyticsEventTypes::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsFunnelQuery(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'query_ids' => 'list<string>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_funnel_query',
+      new AnalyticsFunnelQueryResult(),
+      'EDGE',
+      AnalyticsFunnelQueryResult::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsQuery(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'query_ids' => 'list<string>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_query',
+      new AnalyticsQueryResult(),
+      'EDGE',
+      AnalyticsQueryResult::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsQueryExport(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'query_ids' => 'list<string>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_query_export',
+      new AnalyticsQueryExportResult(),
+      'EDGE',
+      AnalyticsQueryExportResult::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsSegments(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_segments',
+      new AnalyticsSegment(),
+      'EDGE',
+      AnalyticsSegment::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getBrandedContent(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/branded_content',
+      new ShadowIGMedia(),
+      'EDGE',
+      ShadowIGMedia::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function getInsights(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
     $param_types = array(
-      'metric' => 'list<metric_enum>',
-      'period' => 'list<period_enum>',
       'since' => 'datetime',
       'until' => 'datetime',
+      'metric' => 'list<metric_enum>',
+      'period' => 'list<period_enum>',
     );
     $enums = array(
       'metric_enum' => InstagramInsightsResultMetricValues::getInstance()->getValues(),
@@ -112,9 +300,10 @@ class ShadowIGUser extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
+      'media_type' => 'string',
       'caption' => 'string',
       'image_url' => 'string',
-      'media_type' => 'string',
+      'children' => 'list<unsigned int>',
     );
     $enums = array(
     );
@@ -124,9 +313,9 @@ class ShadowIGUser extends AbstractCrudObject {
       $this->data['id'],
       RequestInterface::METHOD_POST,
       '/media',
-      new ShadowIGUser(),
+      new ShadowIGMedia(),
       'EDGE',
-      ShadowIGUser::getFieldsEnum()->getValues(),
+      ShadowIGMedia::getFieldsEnum()->getValues(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);
@@ -158,6 +347,29 @@ class ShadowIGUser extends AbstractCrudObject {
     return $pending ? $request : $request->execute();
   }
 
+  public function getStories(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/stories',
+      new ShadowIGMedia(),
+      'EDGE',
+      ShadowIGMedia::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function getTags(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
@@ -174,6 +386,30 @@ class ShadowIGUser extends AbstractCrudObject {
       new ShadowIGMedia(),
       'EDGE',
       ShadowIGMedia::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getVideoGroups(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'retrieved_videos' => 'list<string>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/video_groups',
+      new VideoGroup(),
+      'EDGE',
+      VideoGroup::getFieldsEnum()->getValues(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);

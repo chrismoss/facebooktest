@@ -41,6 +41,7 @@ class AdAccountCreationRequestFields extends AbstractEnum {
   const ADDITIONAL_COMMENT = 'additional_comment';
   const ADDRESS_IN_CHINESE = 'address_in_chinese';
   const ADDRESS_IN_ENGLISH = 'address_in_english';
+  const ADDRESS_IN_LOCAL_LANGUAGE = 'address_in_local_language';
   const ADVERTISER_BUSINESS = 'advertiser_business';
   const APPEAL_REASON = 'appeal_reason';
   const BUSINESS = 'business';
@@ -55,6 +56,7 @@ class AdAccountCreationRequestFields extends AbstractEnum {
   const IS_SMB = 'is_smb';
   const IS_TEST = 'is_test';
   const IS_UNDER_AUTHORIZATION = 'is_under_authorization';
+  const LEGAL_ENTITY_NAME_IN_LOCAL_LANGUAGE = 'legal_entity_name_in_local_language';
   const OFFICIAL_WEBSITE_URL = 'official_website_url';
   const PLANNING_AGENCY_BUSINESS = 'planning_agency_business';
   const PLANNING_AGENCY_BUSINESS_ID = 'planning_agency_business_id';
@@ -66,9 +68,9 @@ class AdAccountCreationRequestFields extends AbstractEnum {
   const SUBVERTICAL = 'subvertical';
   const TIME_CREATED = 'time_created';
   const VERTICAL = 'vertical';
-  const ADVERTISER_BUSINESS_ID = 'advertiser_business_id';
   const BUSINESS_REGISTRATION = 'business_registration';
   const PROMOTABLE_PAGE_URLS = 'promotable_page_urls';
+  const ADVERTISER_BUSINESS_ID = 'advertiser_business_id';
 
   public function getFieldTypes() {
     return array(
@@ -76,6 +78,7 @@ class AdAccountCreationRequestFields extends AbstractEnum {
       'additional_comment' => 'string',
       'address_in_chinese' => 'string',
       'address_in_english' => 'Object',
+      'address_in_local_language' => 'string',
       'advertiser_business' => 'Business',
       'appeal_reason' => 'Object',
       'business' => 'Business',
@@ -90,6 +93,7 @@ class AdAccountCreationRequestFields extends AbstractEnum {
       'is_smb' => 'bool',
       'is_test' => 'bool',
       'is_under_authorization' => 'bool',
+      'legal_entity_name_in_local_language' => 'string',
       'official_website_url' => 'string',
       'planning_agency_business' => 'Business',
       'planning_agency_business_id' => 'string',
@@ -101,9 +105,9 @@ class AdAccountCreationRequestFields extends AbstractEnum {
       'subvertical' => 'string',
       'time_created' => 'datetime',
       'vertical' => 'string',
-      'advertiser_business_id' => 'string',
       'business_registration' => 'file',
       'promotable_page_urls' => 'list<Object>',
+      'advertiser_business_id' => 'string',
     );
   }
 }

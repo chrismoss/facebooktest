@@ -30,6 +30,7 @@ use FacebookAds\Http\RequestInterface;
 use FacebookAds\TypeChecker;
 use FacebookAds\Object\Fields\AdPlacePageSetFields;
 use FacebookAds\Object\Values\AdPlacePageSetLocationTypesValues;
+use FacebookAds\Object\Values\PageLocationsBreakdownTypeValues;
 
 /**
  * This class is auto-generated.
@@ -62,6 +63,104 @@ class AdPlacePageSet extends AbstractCrudObject {
     return $ref_enums;
   }
 
+
+  public function getInvalidLocations(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'targeting' => 'Targeting',
+      'creative_spec' => 'AdCreative',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/invalid_locations',
+      new AdPlacePageSetInvalidLocation(),
+      'EDGE',
+      AdPlacePageSetInvalidLocation::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getLocations(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/locations',
+      new Page(),
+      'EDGE',
+      Page::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getLocationsBreakdown(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'filtering' => 'list<Object>',
+      'type' => 'type_enum',
+    );
+    $enums = array(
+      'type_enum' => PageLocationsBreakdownTypeValues::getInstance()->getValues(),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/locations_breakdown',
+      new PageLocationsBreakdown(),
+      'EDGE',
+      PageLocationsBreakdown::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getTargetedLocations(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'targeting' => 'Targeting',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/targeted_locations',
+      new Page(),
+      'EDGE',
+      Page::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
 
   public function getSelf(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();

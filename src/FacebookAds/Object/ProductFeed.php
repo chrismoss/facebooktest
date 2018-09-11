@@ -33,6 +33,8 @@ use FacebookAds\Object\Values\ProductFeedDelimiterValues;
 use FacebookAds\Object\Values\ProductFeedEncodingValues;
 use FacebookAds\Object\Values\ProductFeedFeedTypeValues;
 use FacebookAds\Object\Values\ProductFeedQuotedFieldsModeValues;
+use FacebookAds\Object\Values\ProductFeedRulePreviewSampleRuleTypeValues;
+use FacebookAds\Object\Values\ProductFeedRuleRuleTypeValues;
 
 /**
  * This class is auto-generated.
@@ -69,6 +71,227 @@ class ProductFeed extends AbstractCrudObject {
   }
 
 
+  public function getAutoMarkets(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/auto_markets',
+      new AutoMarket(),
+      'EDGE',
+      AutoMarket::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAutomotiveModels(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'bulk_pagination' => 'bool',
+      'filter' => 'Object',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/automotive_models',
+      new AutomotiveModel(),
+      'EDGE',
+      AutomotiveModel::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAutos(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/autos',
+      new Auto(),
+      'EDGE',
+      Auto::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getDestinations(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'bulk_pagination' => 'bool',
+      'filter' => 'Object',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/destinations',
+      new Destination(),
+      'EDGE',
+      Destination::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getFlights(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'bulk_pagination' => 'bool',
+      'filter' => 'Object',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/flights',
+      new Flight(),
+      'EDGE',
+      Flight::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getHomeListings(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'bulk_pagination' => 'bool',
+      'filter' => 'Object',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/home_listings',
+      new HomeListing(),
+      'EDGE',
+      HomeListing::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getHomeServiceProviders(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'bulk_pagination' => 'bool',
+      'filter' => 'Object',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/home_service_providers',
+      new HomeServiceProvider(),
+      'EDGE',
+      HomeServiceProvider::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getHotels(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'bulk_pagination' => 'bool',
+      'filter' => 'Object',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/hotels',
+      new Hotel(),
+      'EDGE',
+      Hotel::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getMediaTitles(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'bulk_pagination' => 'bool',
+      'filter' => 'Object',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/media_titles',
+      new MediaTitle(),
+      'EDGE',
+      MediaTitle::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function getProducts(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
@@ -94,6 +317,79 @@ class ProductFeed extends AbstractCrudObject {
     return $pending ? $request : $request->execute();
   }
 
+  public function getQualityIssues(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/quality_issues',
+      new ProductsQualityIssue(),
+      'EDGE',
+      ProductsQualityIssue::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getRulePreviewSamples(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'attribute' => 'string',
+      'params' => 'map',
+      'rule_type' => 'rule_type_enum',
+    );
+    $enums = array(
+      'rule_type_enum' => ProductFeedRulePreviewSampleRuleTypeValues::getInstance()->getValues(),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/rule_preview_samples',
+      new ProductFeedRulePreviewSample(),
+      'EDGE',
+      ProductFeedRulePreviewSample::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getRules(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/rules',
+      new ProductFeedRule(),
+      'EDGE',
+      ProductFeedRule::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function createRule(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
@@ -103,13 +399,7 @@ class ProductFeed extends AbstractCrudObject {
       'rule_type' => 'rule_type_enum',
     );
     $enums = array(
-      'rule_type_enum' => array(
-        'mapping_rule',
-        'value_mapping_rule',
-        'letter_case_rule',
-        'fallback_rule',
-        'regex_replace_rule',
-      ),
+      'rule_type_enum' => ProductFeedRuleRuleTypeValues::getInstance()->getValues(),
     );
 
     $request = new ApiRequest(
@@ -117,9 +407,9 @@ class ProductFeed extends AbstractCrudObject {
       $this->data['id'],
       RequestInterface::METHOD_POST,
       '/rules',
-      new AbstractCrudObject(),
+      new ProductFeedRule(),
       'EDGE',
-      array(),
+      ProductFeedRule::getFieldsEnum()->getValues(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);
@@ -178,6 +468,31 @@ class ProductFeed extends AbstractCrudObject {
     return $pending ? $request : $request->execute();
   }
 
+  public function getVehicleOffers(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'bulk_pagination' => 'bool',
+      'filter' => 'Object',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/vehicle_offers',
+      new VehicleOffer(),
+      'EDGE',
+      VehicleOffer::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function getVehicles(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
@@ -193,9 +508,9 @@ class ProductFeed extends AbstractCrudObject {
       $this->data['id'],
       RequestInterface::METHOD_GET,
       '/vehicles',
-      new AbstractCrudObject(),
+      new Vehicle(),
       'EDGE',
-      array(),
+      Vehicle::getFieldsEnum()->getValues(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);
@@ -254,13 +569,14 @@ class ProductFeed extends AbstractCrudObject {
 
     $param_types = array(
       'default_currency' => 'string',
-      'deletion_enabled' => 'bool',
       'delimiter' => 'delimiter_enum',
       'encoding' => 'encoding_enum',
       'name' => 'string',
       'quoted_fields_mode' => 'quoted_fields_mode_enum',
       'schedule' => 'string',
       'update_schedule' => 'string',
+      'quoted_fields' => 'bool',
+      'deletion_enabled' => 'bool',
     );
     $enums = array(
       'delimiter_enum' => ProductFeedDelimiterValues::getInstance()->getValues(),

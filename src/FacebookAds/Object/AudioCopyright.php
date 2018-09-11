@@ -29,6 +29,7 @@ use FacebookAds\Cursor;
 use FacebookAds\Http\RequestInterface;
 use FacebookAds\TypeChecker;
 use FacebookAds\Object\Fields\AudioCopyrightFields;
+use FacebookAds\Object\Values\AudioCopyrightUpdateSourceValues;
 
 /**
  * This class is auto-generated.
@@ -50,9 +51,33 @@ class AudioCopyright extends AbstractCrudObject {
 
   protected static function getReferencedEnums() {
     $ref_enums = array();
+    $ref_enums['UpdateSource'] = AudioCopyrightUpdateSourceValues::getInstance()->getValues();
     return $ref_enums;
   }
 
+
+  public function getUpdateRecords(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/update_records',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
 
   public function getSelf(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
@@ -66,6 +91,37 @@ class AudioCopyright extends AbstractCrudObject {
       $this->api,
       $this->data['id'],
       RequestInterface::METHOD_GET,
+      '/',
+      new AudioCopyright(),
+      'NODE',
+      AudioCopyright::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function updateSelf(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'update_source' => 'update_source_enum',
+      'match_rule' => 'string',
+      'ownership_countries' => 'list<string>',
+      'whitelisted_fb_users' => 'list<string>',
+      'whitelisted_ig_users' => 'list<string>',
+      'append_excluded_ownership_segments' => 'bool',
+      'excluded_ownership_segments' => 'list<Object>',
+    );
+    $enums = array(
+      'update_source_enum' => AudioCopyrightUpdateSourceValues::getInstance()->getValues(),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_POST,
       '/',
       new AudioCopyright(),
       'NODE',

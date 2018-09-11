@@ -54,6 +54,29 @@ class URL extends AbstractCrudObject {
   }
 
 
+  public function getShareDPosts(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/sharedposts',
+      new Post(),
+      'EDGE',
+      Post::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function getSelf(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
@@ -66,6 +89,32 @@ class URL extends AbstractCrudObject {
       $this->api,
       $this->data['id'],
       RequestInterface::METHOD_GET,
+      '/',
+      new URL(),
+      'NODE',
+      URL::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function updateSelf(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'locale' => 'Object',
+      'hmac' => 'string',
+      'ts' => 'Object',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_POST,
       '/',
       new URL(),
       'NODE',

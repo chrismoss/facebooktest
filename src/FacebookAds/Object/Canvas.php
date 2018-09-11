@@ -91,9 +91,33 @@ class Canvas extends AbstractCrudObject {
       $this->data['id'],
       RequestInterface::METHOD_POST,
       '/preview_notifications',
-      new AbstractCrudObject(),
+      new Canvas(),
       'EDGE',
-      array(),
+      Canvas::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getPreviews(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'user_ids' => 'list<int>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/previews',
+      new TextWithEntities(),
+      'EDGE',
+      TextWithEntities::getFieldsEnum()->getValues(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);
@@ -151,11 +175,11 @@ class Canvas extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
-      'background_color' => 'string',
-      'body_element_ids' => 'list<string>',
-      'is_hidden' => 'bool',
-      'is_published' => 'bool',
       'name' => 'string',
+      'body_element_ids' => 'list<string>',
+      'background_color' => 'string',
+      'is_published' => 'bool',
+      'is_hidden' => 'bool',
     );
     $enums = array(
     );

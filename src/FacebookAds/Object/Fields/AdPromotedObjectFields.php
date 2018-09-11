@@ -45,10 +45,14 @@ class AdPromotedObjectFields extends AbstractEnum {
   const OFFER_ID = 'offer_id';
   const OFFLINE_CONVERSION_DATA_SET_ID = 'offline_conversion_data_set_id';
   const PAGE_ID = 'page_id';
+  const PIXEL_AGGREGATION_RULE = 'pixel_aggregation_rule';
   const PIXEL_ID = 'pixel_id';
+  const PIXEL_RULE = 'pixel_rule';
   const PLACE_PAGE_SET_ID = 'place_page_set_id';
   const PRODUCT_CATALOG_ID = 'product_catalog_id';
   const PRODUCT_SET_ID = 'product_set_id';
+  const RETENTION_DAYS = 'retention_days';
+  const ID = 'id';
 
   public function getFieldTypes() {
     return array(
@@ -60,10 +64,14 @@ class AdPromotedObjectFields extends AbstractEnum {
       'offer_id' => 'string',
       'offline_conversion_data_set_id' => 'string',
       'page_id' => 'string',
+      'pixel_aggregation_rule' => 'string',
       'pixel_id' => 'string',
+      'pixel_rule' => 'string',
       'place_page_set_id' => 'string',
       'product_catalog_id' => 'string',
       'product_set_id' => 'string',
+      'retention_days' => 'string',
+      'id' => 'string',
     );
   }
 }

@@ -29,6 +29,7 @@ use FacebookAds\Cursor;
 use FacebookAds\Http\RequestInterface;
 use FacebookAds\TypeChecker;
 use FacebookAds\Object\Fields\AdActivityFields;
+use FacebookAds\Object\Values\AdActivityActivityTypeValues;
 use FacebookAds\Object\Values\AdActivityCategoryValues;
 use FacebookAds\Object\Values\AdActivityEventTypeValues;
 
@@ -41,7 +42,7 @@ use FacebookAds\Object\Values\AdActivityEventTypeValues;
  *
  */
 
-class AdActivity extends AbstractObject {
+class AdActivity extends AbstractCrudObject {
 
   /**
    * @return AdActivityFields
@@ -54,8 +55,32 @@ class AdActivity extends AbstractObject {
     $ref_enums = array();
     $ref_enums['EventType'] = AdActivityEventTypeValues::getInstance()->getValues();
     $ref_enums['Category'] = AdActivityCategoryValues::getInstance()->getValues();
+    $ref_enums['ActivityType'] = AdActivityActivityTypeValues::getInstance()->getValues();
     return $ref_enums;
   }
 
+
+  public function getSelf(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/',
+      new AdActivity(),
+      'NODE',
+      AdActivity::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
 
 }

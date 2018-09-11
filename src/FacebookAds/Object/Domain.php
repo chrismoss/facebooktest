@@ -29,6 +29,7 @@ use FacebookAds\Cursor;
 use FacebookAds\Http\RequestInterface;
 use FacebookAds\TypeChecker;
 use FacebookAds\Object\Fields\DomainFields;
+use FacebookAds\Object\Values\InsightsQueryResultPeriodValues;
 
 /**
  * This class is auto-generated.
@@ -53,6 +54,36 @@ class Domain extends AbstractCrudObject {
     return $ref_enums;
   }
 
+
+  public function getUrlInsights(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'metric_key' => 'string',
+      'period' => 'period_enum',
+      'since' => 'datetime',
+      'until' => 'datetime',
+      'breakdowns' => 'list<string>',
+      'urls' => 'list<string>',
+    );
+    $enums = array(
+      'period_enum' => InsightsQueryResultPeriodValues::getInstance()->getValues(),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/url_insights',
+      new InsightsQueryResult(),
+      'EDGE',
+      InsightsQueryResult::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
 
   public function getSelf(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();

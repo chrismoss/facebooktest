@@ -29,6 +29,7 @@ use FacebookAds\Cursor;
 use FacebookAds\Http\RequestInterface;
 use FacebookAds\TypeChecker;
 use FacebookAds\Object\Fields\BusinessRoleRequestFields;
+use FacebookAds\Object\Values\BusinessObjectAssetTypeValues;
 use FacebookAds\Object\Values\BusinessRoleRequestRoleValues;
 use FacebookAds\Object\Values\BusinessRoleRequestStatusValues;
 
@@ -57,6 +58,105 @@ class BusinessRoleRequest extends AbstractCrudObject {
     return $ref_enums;
   }
 
+
+  public function getAssignedClientAssets(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'asset_type' => 'asset_type_enum',
+    );
+    $enums = array(
+      'asset_type_enum' => array(
+        'PAGE',
+        'AD_ACCOUNT',
+        'PRODUCT_CATALOG',
+        'APP',
+        'PIXEL',
+        'SYSTEM_USER',
+        'BRAND',
+        'USER',
+        'PROJECT',
+        'INSTAGRAM_ACCOUNT',
+        'ATLAS_ADVERTISER',
+        'FUNDING_SOURCE',
+        'LEGACY_LOGIN',
+        'BUSINESS_REQUEST',
+        'EXAMPLE_CAT',
+        'MONETIZATION_PROPERTY',
+        'GRP_PLAN',
+        'PERSONA',
+        'CREDIT_PARTITION',
+        'PAYOUT_ACCOUNT',
+        'AD_STUDY',
+        'SAVED_AUDIENCE',
+        'CUSTOM_AUDIENCE',
+        'PLATFORM_CUSTOM_AUDIENCE',
+        'EVENT_SOURCE_GROUP',
+        'OFFLINE_CONVERSION_DATA_SET',
+        'AD_IMAGE',
+        'PHOTO',
+        'BLOCK_LIST',
+        'FINANCE',
+        'IP',
+        'CREDIT_PARTITION_CONFIG',
+        'VIDEO_ASSET',
+        'BUSINESS_UNIT',
+        'PAGE_FOR_LOCATIONS',
+        'AD_ACCOUNT_CREATION_REQUEST',
+        'RESELLER_VETTING_OE_REQUEST',
+        'REGISTERED_TRADEMARK',
+        'CUSTOM_CONVERSION',
+        'LEADS_ACCESS',
+        'SPACO_DS_DATA_COLLECTION',
+        'OWNED_DOMAIN',
+        'WHATSAPP_BUSINESS_ACCOUNT',
+        'BUSINESS_RESOURCE_GROUP',
+        'HOTEL_PRICE_FETCHER_PULL_CONFIG',
+        'NEWS_PAGE',
+        'PLACE_PAGE_SET',
+        'BUSINESS_LOCATIONS_WRAPPER',
+      ),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/assigned_client_assets',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAssignedOwnedAssets(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'asset_type' => 'asset_type_enum',
+    );
+    $enums = array(
+      'asset_type_enum' => BusinessObjectAssetTypeValues::getInstance()->getValues(),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/assigned_owned_assets',
+      new BusinessObject(),
+      'EDGE',
+      BusinessObject::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
 
   public function deleteSelf(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();

@@ -29,7 +29,6 @@ use FacebookAds\Cursor;
 use FacebookAds\Http\RequestInterface;
 use FacebookAds\TypeChecker;
 use FacebookAds\Object\Fields\AdStudyObjectiveFields;
-use FacebookAds\Object\Values\AdStudyObjectiveBreakdownsValues;
 use FacebookAds\Object\Values\AdStudyObjectiveTypeValues;
 
 /**
@@ -52,11 +51,194 @@ class AdStudyObjective extends AbstractCrudObject {
 
   protected static function getReferencedEnums() {
     $ref_enums = array();
-    $ref_enums['Breakdowns'] = AdStudyObjectiveBreakdownsValues::getInstance()->getValues();
     $ref_enums['Type'] = AdStudyObjectiveTypeValues::getInstance()->getValues();
     return $ref_enums;
   }
 
+
+  public function getAdPlacePageSets(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/ad_place_page_sets',
+      new AdPlacePageSet(),
+      'EDGE',
+      AdPlacePageSet::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAdsPixels(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/adspixels',
+      new AdsPixel(),
+      'EDGE',
+      AdsPixel::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getApplications(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/applications',
+      new Application(),
+      'EDGE',
+      Application::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getBrandRequests(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/brand_requests',
+      new BrandRequest(),
+      'EDGE',
+      BrandRequest::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getCustomConversions(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/customconversions',
+      new CustomConversion(),
+      'EDGE',
+      CustomConversion::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getOfflineConversionDataSets(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/offline_conversion_data_sets',
+      new OfflineConversionDataSet(),
+      'EDGE',
+      OfflineConversionDataSet::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getOffsitePixels(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/offsitepixels',
+      new OffsitePixel(),
+      'EDGE',
+      OffsitePixel::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getPartnerStudies(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/partnerstudies',
+      new PartnerStudy(),
+      'EDGE',
+      PartnerStudy::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
 
   public function deleteSelf(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
@@ -88,7 +270,12 @@ class AdStudyObjective extends AbstractCrudObject {
       'breakdowns' => 'list<breakdowns_enum>',
     );
     $enums = array(
-      'breakdowns_enum' => AdStudyObjectiveBreakdownsValues::getInstance()->getValues(),
+      'breakdowns_enum' => array(
+        'age',
+        'cell_id',
+        'gender',
+        'country',
+      ),
     );
 
     $request = new ApiRequest(
@@ -110,14 +297,14 @@ class AdStudyObjective extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
-      'adspixels' => 'list<Object>',
-      'applications' => 'list<Object>',
-      'customconversions' => 'list<Object>',
       'is_primary' => 'bool',
       'name' => 'string',
-      'offline_conversion_data_sets' => 'list<Object>',
-      'offsitepixels' => 'list<Object>',
       'type' => 'type_enum',
+      'adspixels' => 'list<Object>',
+      'customconversions' => 'list<Object>',
+      'applications' => 'list<Object>',
+      'offsitepixels' => 'list<Object>',
+      'offline_conversion_data_sets' => 'list<Object>',
     );
     $enums = array(
       'type_enum' => AdStudyObjectiveTypeValues::getInstance()->getValues(),

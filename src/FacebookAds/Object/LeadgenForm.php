@@ -65,6 +65,57 @@ class LeadgenForm extends AbstractCrudObject {
   }
 
 
+  public function getAdSets(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'query' => 'string',
+      'campaign' => 'string',
+      'adsets' => 'list<Object>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/adsets',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getCampaigns(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'query' => 'string',
+      'campaigns' => 'list<string>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/campaigns',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function getLeads(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
@@ -92,9 +143,9 @@ class LeadgenForm extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
+      'start_time' => 'datetime',
       'end_time' => 'datetime',
       'session_id' => 'string',
-      'start_time' => 'datetime',
     );
     $enums = array(
     );
@@ -104,9 +155,32 @@ class LeadgenForm extends AbstractCrudObject {
       $this->data['id'],
       RequestInterface::METHOD_POST,
       '/leads',
-      new LeadgenForm(),
+      new Lead(),
       'EDGE',
-      LeadgenForm::getFieldsEnum()->getValues(),
+      Lead::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getTestLeads(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/test_leads',
+      new Lead(),
+      'EDGE',
+      Lead::getFieldsEnum()->getValues(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);
@@ -118,8 +192,8 @@ class LeadgenForm extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
-      'custom_disclaimer_responses' => 'list<Object>',
       'field_data' => 'list<Object>',
+      'custom_disclaimer_responses' => 'list<Object>',
     );
     $enums = array(
     );
@@ -129,9 +203,9 @@ class LeadgenForm extends AbstractCrudObject {
       $this->data['id'],
       RequestInterface::METHOD_POST,
       '/test_leads',
-      new LeadgenForm(),
+      new Lead(),
       'EDGE',
-      LeadgenForm::getFieldsEnum()->getValues(),
+      Lead::getFieldsEnum()->getValues(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);

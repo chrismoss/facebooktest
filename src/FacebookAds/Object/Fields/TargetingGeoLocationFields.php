@@ -43,12 +43,14 @@ class TargetingGeoLocationFields extends AbstractEnum {
   const CUSTOM_LOCATIONS = 'custom_locations';
   const ELECTORAL_DISTRICTS = 'electoral_districts';
   const GEO_MARKETS = 'geo_markets';
+  const LOCATION_CLUSTER_IDS = 'location_cluster_ids';
   const LOCATION_SET_IDS = 'location_set_ids';
   const LOCATION_TYPES = 'location_types';
   const PLACES = 'places';
   const POLITICAL_DISTRICTS = 'political_districts';
   const REGIONS = 'regions';
   const ZIPS = 'zips';
+  const ID = 'id';
 
   public function getFieldTypes() {
     return array(
@@ -58,12 +60,14 @@ class TargetingGeoLocationFields extends AbstractEnum {
       'custom_locations' => 'list<TargetingGeoLocationCustomLocation>',
       'electoral_districts' => 'list<TargetingGeoLocationElectoralDistrict>',
       'geo_markets' => 'list<TargetingGeoLocationMarket>',
+      'location_cluster_ids' => 'list<TargetingGeoLocationLocationCluster>',
       'location_set_ids' => 'list<string>',
       'location_types' => 'list<string>',
       'places' => 'list<TargetingGeoLocationPlace>',
       'political_districts' => 'list<TargetingGeoLocationPoliticalDistrict>',
       'regions' => 'list<TargetingGeoLocationRegion>',
       'zips' => 'list<TargetingGeoLocationZip>',
+      'id' => 'string',
     );
   }
 }

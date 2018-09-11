@@ -29,7 +29,7 @@ use FacebookAds\Cursor;
 use FacebookAds\Http\RequestInterface;
 use FacebookAds\TypeChecker;
 use FacebookAds\Object\Fields\PlaceTopicFields;
-use FacebookAds\Object\Values\PlaceTopicIconSizeValues;
+use FacebookAds\Object\Values\ProfilePictureSourceTypeValues;
 
 /**
  * This class is auto-generated.
@@ -51,10 +51,35 @@ class PlaceTopic extends AbstractCrudObject {
 
   protected static function getReferencedEnums() {
     $ref_enums = array();
-    $ref_enums['IconSize'] = PlaceTopicIconSizeValues::getInstance()->getValues();
     return $ref_enums;
   }
 
+
+  public function getPicture(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'type' => 'type_enum',
+      'redirect' => 'bool',
+    );
+    $enums = array(
+      'type_enum' => ProfilePictureSourceTypeValues::getInstance()->getValues(),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/picture',
+      new ProfilePictureSource(),
+      'EDGE',
+      ProfilePictureSource::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
 
   public function getSelf(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
@@ -63,7 +88,12 @@ class PlaceTopic extends AbstractCrudObject {
       'icon_size' => 'icon_size_enum',
     );
     $enums = array(
-      'icon_size_enum' => PlaceTopicIconSizeValues::getInstance()->getValues(),
+      'icon_size_enum' => array(
+        '24',
+        '36',
+        '48',
+        '72',
+      ),
     );
 
     $request = new ApiRequest(

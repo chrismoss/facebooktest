@@ -30,6 +30,7 @@ use FacebookAds\Http\RequestInterface;
 use FacebookAds\TypeChecker;
 use FacebookAds\Object\Fields\AdImageFields;
 use FacebookAds\Object\Values\AdImageStatusValues;
+use FacebookAds\Object\Values\BusinessObjectTypeValues;
 
 /**
  * This class is auto-generated.
@@ -62,6 +63,102 @@ class AdImage extends AbstractCrudObject {
     return $ref_enums;
   }
 
+
+  public function getAssignedPartners(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/assigned_partners',
+      new Business(),
+      'EDGE',
+      Business::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getBusinessObjectTags(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'business_id' => 'string',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/business_object_tags',
+      new BusinessTag(),
+      'EDGE',
+      BusinessTag::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getBusinessRequests(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/business_requests',
+      new BusinessRequest(),
+      'EDGE',
+      BusinessRequest::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getConnectedBusinessObjects(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'type' => 'type_enum',
+      'business_id' => 'string',
+    );
+    $enums = array(
+      'type_enum' => BusinessObjectTypeValues::getInstance()->getValues(),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/connected_business_objects',
+      new BusinessObject(),
+      'EDGE',
+      BusinessObject::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
 
   public function getSelf(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
@@ -247,7 +344,7 @@ class AdImage extends AbstractCrudObject {
    * @return void
    * @throws \Exception
    */
-  public function delete(array $params = array()) {
+  public function deleteSelf(array $params = array()) {
     if (!$this->data[AdImageFields::HASH]) {
       throw new \Exception("AdImage hash is required to delete");
     }
@@ -255,6 +352,6 @@ class AdImage extends AbstractCrudObject {
     $params
       = array_merge($params, array('hash' => $this->data[AdImageFields::HASH]));
 
-    parent::delete($params);
+    parent::deleteSelf($params);
   }
 }

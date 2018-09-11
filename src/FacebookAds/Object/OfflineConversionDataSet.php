@@ -29,8 +29,11 @@ use FacebookAds\Cursor;
 use FacebookAds\Http\RequestInterface;
 use FacebookAds\TypeChecker;
 use FacebookAds\Object\Fields\OfflineConversionDataSetFields;
-use FacebookAds\Object\Values\BusinessPermittedRolesValues;
+use FacebookAds\Object\Values\BusinessObjectTypeValues;
+use FacebookAds\Object\Values\ExternalEventSourceDAStatsResultEventValues;
 use FacebookAds\Object\Values\OfflineConversionDataSetDataOriginValues;
+use FacebookAds\Object\Values\OfflineConversionDataSetPermittedRolesValues;
+use FacebookAds\Object\Values\OfflineConversionDataSetRoleValues;
 
 /**
  * This class is auto-generated.
@@ -60,6 +63,8 @@ class OfflineConversionDataSet extends AbstractCrudObject {
   protected static function getReferencedEnums() {
     $ref_enums = array();
     $ref_enums['DataOrigin'] = OfflineConversionDataSetDataOriginValues::getInstance()->getValues();
+    $ref_enums['PermittedRoles'] = OfflineConversionDataSetPermittedRolesValues::getInstance()->getValues();
+    $ref_enums['Role'] = OfflineConversionDataSetRoleValues::getInstance()->getValues();
     return $ref_enums;
   }
 
@@ -69,9 +74,9 @@ class OfflineConversionDataSet extends AbstractCrudObject {
 
     $param_types = array(
       'business_id' => 'string',
+      'start_time' => 'datetime',
       'end_time' => 'datetime',
       'event_type' => 'event_type_enum',
-      'start_time' => 'datetime',
     );
     $enums = array(
       'event_type_enum' => array(
@@ -160,8 +165,8 @@ class OfflineConversionDataSet extends AbstractCrudObject {
 
     $param_types = array(
       'account_id' => 'string',
-      'auto_track_for_ads' => 'bool',
       'business' => 'string',
+      'auto_track_for_ads' => 'bool',
     );
     $enums = array(
     );
@@ -171,9 +176,9 @@ class OfflineConversionDataSet extends AbstractCrudObject {
       $this->data['id'],
       RequestInterface::METHOD_POST,
       '/adaccounts',
-      new AbstractCrudObject(),
+      new OfflineConversionDataSet(),
       'EDGE',
-      array(),
+      OfflineConversionDataSet::getFieldsEnum()->getValues(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);
@@ -205,21 +210,18 @@ class OfflineConversionDataSet extends AbstractCrudObject {
     return $pending ? $request : $request->execute();
   }
 
-  public function createAgency(array $fields = array(), array $params = array(), $pending = false) {
+  public function getAgencies(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
     $param_types = array(
-      'business' => 'string',
-      'permitted_roles' => 'list<permitted_roles_enum>',
     );
     $enums = array(
-      'permitted_roles_enum' => BusinessPermittedRolesValues::getInstance()->getValues(),
     );
 
     $request = new ApiRequest(
       $this->api,
       $this->data['id'],
-      RequestInterface::METHOD_POST,
+      RequestInterface::METHOD_GET,
       '/agencies',
       new Business(),
       'EDGE',
@@ -231,15 +233,455 @@ class OfflineConversionDataSet extends AbstractCrudObject {
     return $pending ? $request : $request->execute();
   }
 
+  public function createAgency(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'business' => 'string',
+      'permitted_roles' => 'list<permitted_roles_enum>',
+    );
+    $enums = array(
+      'permitted_roles_enum' => OfflineConversionDataSetPermittedRolesValues::getInstance()->getValues(),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_POST,
+      '/agencies',
+      new OfflineConversionDataSet(),
+      'EDGE',
+      OfflineConversionDataSet::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsCohortQuery(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'query_ids' => 'list<string>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_cohort_query',
+      new AnalyticsCohortQueryResult(),
+      'EDGE',
+      AnalyticsCohortQueryResult::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsEntityUserConfig(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_entity_user_config',
+      new AnalyticsEntityUserConfig(),
+      'EDGE',
+      AnalyticsEntityUserConfig::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsEventTypes(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_event_types',
+      new AnalyticsEventTypes(),
+      'EDGE',
+      AnalyticsEventTypes::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsFunnelQuery(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'query_ids' => 'list<string>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_funnel_query',
+      new AnalyticsFunnelQueryResult(),
+      'EDGE',
+      AnalyticsFunnelQueryResult::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsQuery(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'query_ids' => 'list<string>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_query',
+      new AnalyticsQueryResult(),
+      'EDGE',
+      AnalyticsQueryResult::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsQueryExport(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'query_ids' => 'list<string>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_query_export',
+      new AnalyticsQueryExportResult(),
+      'EDGE',
+      AnalyticsQueryExportResult::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAnalyticsSegments(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/analytics_segments',
+      new AnalyticsSegment(),
+      'EDGE',
+      AnalyticsSegment::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAssignedPartners(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/assigned_partners',
+      new Business(),
+      'EDGE',
+      Business::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAssignedUsers(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'business' => 'Object',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/assigned_users',
+      new AssignedUser(),
+      'EDGE',
+      AssignedUser::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAttributedEvents(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'start' => 'int',
+      'end' => 'int',
+      'breakdowns' => 'list<breakdowns_enum>',
+    );
+    $enums = array(
+      'breakdowns_enum' => array(
+        'time_span',
+        'is_view_through',
+        'event_type',
+      ),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/attributed_events',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAudiences(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'ad_account' => 'string',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/audiences',
+      new CustomAudience(),
+      'EDGE',
+      CustomAudience::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getBusinessObjectTags(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'business_id' => 'string',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/business_object_tags',
+      new BusinessTag(),
+      'EDGE',
+      BusinessTag::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getBusinessRequests(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/business_requests',
+      new BusinessRequest(),
+      'EDGE',
+      BusinessRequest::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getConnectedBusinessObjects(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'type' => 'type_enum',
+      'business_id' => 'string',
+    );
+    $enums = array(
+      'type_enum' => BusinessObjectTypeValues::getInstance()->getValues(),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/connected_business_objects',
+      new BusinessObject(),
+      'EDGE',
+      BusinessObject::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getCustomConversions(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'ad_account' => 'string',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/customconversions',
+      new CustomConversion(),
+      'EDGE',
+      CustomConversion::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getDaChecks(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'checks' => 'list<string>',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/da_checks',
+      new DACheck(),
+      'EDGE',
+      DACheck::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getDaStats(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'event' => 'event_enum',
+    );
+    $enums = array(
+      'event_enum' => ExternalEventSourceDAStatsResultEventValues::getInstance()->getValues(),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/da_stats',
+      new ExternalEventSourceDAStatsResult(),
+      'EDGE',
+      ExternalEventSourceDAStatsResult::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function createEvent(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
     $param_types = array(
+      'upload_tag' => 'string',
+      'upload_id' => 'string',
+      'upload_source' => 'string',
       'data' => 'list<string>',
       'namespace_id' => 'string',
       'progress' => 'Object',
-      'upload_id' => 'string',
-      'upload_tag' => 'string',
     );
     $enums = array(
     );
@@ -259,16 +701,62 @@ class OfflineConversionDataSet extends AbstractCrudObject {
     return $pending ? $request : $request->execute();
   }
 
+  public function getOptimizationStatuses(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/optimization_statuses',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getProductCatalogs(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/product_catalogs',
+      new ProductCatalog(),
+      'EDGE',
+      ProductCatalog::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function getStats(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
     $param_types = array(
-      'aggr_time' => 'aggr_time_enum',
-      'end' => 'int',
-      'granularity' => 'granularity_enum',
-      'skip_empty_values' => 'bool',
       'start' => 'int',
+      'end' => 'int',
+      'skip_empty_values' => 'bool',
+      'aggr_time' => 'aggr_time_enum',
       'user_timezone_id' => 'unsigned int',
+      'granularity' => 'granularity_enum',
     );
     $enums = array(
       'aggr_time_enum' => array(
@@ -278,6 +766,7 @@ class OfflineConversionDataSet extends AbstractCrudObject {
       'granularity_enum' => array(
         'daily',
         'hourly',
+        'six_hourly',
       ),
     );
 
@@ -300,17 +789,13 @@ class OfflineConversionDataSet extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
-      'end_time' => 'Object',
-      'order' => 'order_enum',
-      'sort_by' => 'sort_by_enum',
-      'start_time' => 'Object',
       'upload_tag' => 'string',
+      'start_time' => 'Object',
+      'end_time' => 'Object',
+      'sort_by' => 'sort_by_enum',
+      'order' => 'order_enum',
     );
     $enums = array(
-      'order_enum' => array(
-        'ASCENDING',
-        'DESCENDING',
-      ),
       'sort_by_enum' => array(
         'CREATION_TIME',
         'FIRST_UPLOAD_TIME',
@@ -319,6 +804,10 @@ class OfflineConversionDataSet extends AbstractCrudObject {
         'EVENT_TIME_MIN',
         'EVENT_TIME_MAX',
         'IS_EXCLUDED_FOR_LIFT',
+      ),
+      'order_enum' => array(
+        'ASCENDING',
+        'DESCENDING',
       ),
     );
 
@@ -365,9 +854,9 @@ class OfflineConversionDataSet extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
-      'business' => 'Object',
-      'email' => 'string',
       'user' => 'int',
+      'email' => 'string',
+      'business' => 'Object',
     );
     $enums = array(
     );
@@ -387,20 +876,40 @@ class OfflineConversionDataSet extends AbstractCrudObject {
     return $pending ? $request : $request->execute();
   }
 
-  public function createUserPermission(array $fields = array(), array $params = array(), $pending = false) {
+  public function getUserPermissions(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
     $param_types = array(
       'business' => 'Object',
-      'role' => 'role_enum',
-      'user' => 'int',
     );
     $enums = array(
-      'role_enum' => array(
-        'ADMIN',
-        'UPLOADER',
-        'ADVERTISER',
-      ),
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/userpermissions',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function createUserPermission(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'user' => 'int',
+      'role' => 'role_enum',
+      'business' => 'Object',
+    );
+    $enums = array(
+      'role_enum' => OfflineConversionDataSetRoleValues::getInstance()->getValues(),
     );
 
     $request = new ApiRequest(
@@ -408,9 +917,9 @@ class OfflineConversionDataSet extends AbstractCrudObject {
       $this->data['id'],
       RequestInterface::METHOD_POST,
       '/userpermissions',
-      new AbstractCrudObject(),
+      new OfflineConversionDataSet(),
       'EDGE',
-      array(),
+      OfflineConversionDataSet::getFieldsEnum()->getValues(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);
@@ -493,11 +1002,11 @@ class OfflineConversionDataSet extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
-      'auto_assign_to_new_accounts_only' => 'bool',
-      'data_origin' => 'data_origin_enum',
-      'description' => 'string',
-      'enable_auto_assign_to_accounts' => 'bool',
       'name' => 'string',
+      'description' => 'string',
+      'data_origin' => 'data_origin_enum',
+      'enable_auto_assign_to_accounts' => 'bool',
+      'auto_assign_to_new_accounts_only' => 'bool',
     );
     $enums = array(
       'data_origin_enum' => OfflineConversionDataSetDataOriginValues::getInstance()->getValues(),
